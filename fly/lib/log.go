@@ -52,8 +52,9 @@ func NewLogger(config *Config) (l *Logger) {
 	return
 }
 
-func (self *Logger) setOutput() {
-	output := fmt.Sprintf("log/%v", self.Default("log.output"))
+func (c *Logger) setOutput() {
+	var name string = "fly.log"
+	output := fmt.Sprintf("log/%v", name)
 	file, err := os.OpenFile(output, os.O_CREATE|os.O_RDWR|os.O_APPEND, 0666)
 	if err != nil {
 		fmt.Errorf("| Error | Opening file: %v \n", err)
@@ -62,7 +63,7 @@ func (self *Logger) setOutput() {
 	log.SetOutput(file)
 }
 
-func (self *Logger) Printf(format string, args ...interface{}) {
+func (c *Logger) Printf(format string, args ...interface{}) {
 	fields := log.Fields{"Data": args}
 	log.WithFields(fields).Info(format)
 }

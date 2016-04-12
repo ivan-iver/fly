@@ -4,6 +4,7 @@ import (
 	"github.com/theplant/blackfriday"
 	"html/template"
 	"io/ioutil"
+	"log"
 	"strings"
 )
 
@@ -19,9 +20,11 @@ func (f *File) Read() (result string, err error) {
 	}
 	if strings.HasSuffix(f.Name, ".md") {
 		f.IsMarkdown = true
+		log.Printf("data.md: %s", data)
 		var md = blackfriday.MarkdownCommon(data)
 		result = string(template.HTML(md))
 	} else {
+		log.Printf("data.algo mas: %s", data)
 		result = string(data)
 	}
 	return
