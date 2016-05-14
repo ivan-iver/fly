@@ -22,7 +22,7 @@ go:
   - 1.6.2
 
 install:
-  - go get -t -d fly/
+  - go get -v $(go list -f '{{join .Imports "\n"}}' ./... )
 
 after_script:
   - make uninstall
