@@ -40,8 +40,6 @@ base:
 		echo "Linking package ..."; \
 		ln -sf ${ACTUAL}/${NAME} ${GOPATH}/src/${NAME}; \
 	fi;
-	ls -al ${GOPATH}/src/${NAME};
-	ls -al ${GOPATH}/src/${NAME}/;
 
 package: build
 	@sed -i '' -e '1s/\(.*\)/${VERSION}/g' ${NAME}/app.conf
