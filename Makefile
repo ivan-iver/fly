@@ -40,21 +40,25 @@ base:
 	# | ACTUAL: ${ACTUAL}
 	#  -------------------
 	# Creating working directory ${GOPATH}/src/${NAME}
-	@if [ ! -d ${GOPATH}/src/${NAME} ]; then \
-		mkdir -p ${GOPATH}/src/${NAME}; \
-	fi;
 	# Checking link ${GOPATH}/src/${NAME} to ${ACTUAL}/${NAME}
 	@if [[ -L ${GOPATH}/src/${NAME} && -d ${GOPATH}/src/${NAME} ]]; then \
 		echo "Skip Linked"; \
-		else \
-		ln -sf ${ACTUAL}/${NAME} $$GOPATH/src/${NAME}; \
-		echo "Compiling ..."; \
+	else \
+		echo "Linking package ..."; \
+		ln -sf ${ACTUAL}/${NAME} ${GOPATH}/src/${NAME}/; \
 	fi;
 	ls -al ${GOPATH}/src/${NAME};
 	ls -al ${GOPATH}/src/${NAME}/;
 
 uninstall:
-	@unlink ${GOPATH}/src/${NAME};
+	# Start uninstall
+	@if [[ -d ${GOPATH}/src/${NAME} ]]; then \
+		@echo "Removing directory"; \
+		rm -rf ${GOPATH}/src/${NAME}; \
+	else \
+		@echo "Unlink package"; \
+		unlink ${GOPATH}/src/${NAME}; \
+	fi;
 	@rm -f ${GOPATH}/bin/${NAME};
 
 clean:
