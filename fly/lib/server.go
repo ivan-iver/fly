@@ -28,15 +28,14 @@ func (s *Server) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
 	if r.URL.Path == "/" {
 		file.Name = "README.md"
 	}
-	var result string
+	var result interface{}
 	var err error
 	if result, err = file.Read(); err != nil {
 		http.Error(rw, "Unable to read file", 500)
 		return
 	}
-	if file.IsMarkdown {
-		log.Printf("REsult.: %v", result)
-		s.Render.HTML(rw, 200, "slide", result)
+	if file.HasFormat {
+		s.Render.HTML(rw, 200, file.Format, result)
 		return
 	}
 

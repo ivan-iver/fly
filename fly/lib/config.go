@@ -39,7 +39,7 @@ func NewConfig() (config *Config, err error) {
 	}
 	//	fmt.Println("App | Config loaded successfully! \n")
 	config.IsProduction = strings.EqualFold(config.Default("env"), production)
-	// fmt.Println("App | Config.IsProduction \n", config.IsProduction)
+	fmt.Println("App | Config.IsProduction ", config.IsProduction)
 	return
 }
 
@@ -57,12 +57,12 @@ func (c *Config) File() (file string) {
 // Gets config property from default section
 func (c *Config) Default(property string) (result string) {
 	var err error
-	fmt.Printf("Property: %v", property)
-	fmt.Printf("En Default %v", c)
+	fmt.Printf("App | Property: %v \n", property)
 	if result, err = c.String("default", property); err != nil {
 		fmt.Errorf("| Error | %v \n", err)
 		return ""
 	}
+	fmt.Printf("App | Value: %v \n", result)
 	return
 }
 
