@@ -34,7 +34,7 @@ base:
 		mkdir -p $$GOPATH/src/${NAME}; \
 	fi;
 	# Checking link
-	@if [[ -L $$GOPATH/src/${NAME}&& -d $$GOPATH/src/${NAME}]]; then \
+	@if [[ -L $$GOPATH/src/${NAME}&& -d $$GOPATH/src/${NAME} ]]; then \
 		echo "Skip Linked"; \
 	else \
 		ln -sf ${ACTUAL}/${NAME} $$GOPATH/src/${NAME}; \
