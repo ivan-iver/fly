@@ -28,11 +28,9 @@ matrix:
     - 1.6.1
     - 1.6.2
 
-before_install:
+install:
   - check_preconditions && actually_build
-  - make get
-
-install: true
+  - make build
 
 after_script:
   - make uninstall
