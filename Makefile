@@ -44,12 +44,13 @@ base:
 		mkdir -p ${GOPATH}/src/${NAME}; \
 	fi;
 	# Checking link ${GOPATH}/src/${NAME} to ${ACTUAL}/${NAME}
-	@if [[ -L ${GOPATH}/src/${NAME}&& -d ${GOPATH}/src/${NAME} ]]; then \
+	@if [[ -L ${GOPATH}/src/${NAME} && -d ${GOPATH}/src/${NAME} ]]; then \
 		echo "Skip Linked"; \
-	else \
+		else \
 		ln -sf ${ACTUAL}/${NAME} $$GOPATH/src/${NAME}; \
 		echo "Compiling ..."; \
 	fi;
+	ls ${GOPATH}/src/${NAME};
 
 uninstall:
 	@unlink ${GOPATH}/src/${NAME};
