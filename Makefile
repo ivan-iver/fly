@@ -39,7 +39,7 @@ base:
 	# | GOPATH: ${GOPATH}
 	# | ACTUAL: ${ACTUAL}
 	#  -------------------
-	# Creating working directory.
+	# Creating working directory $$GOPATH/src/${NAME}
 	@if [ ! -d $$GOPATH/src/${NAME} ]; then \
 		mkdir -p $$GOPATH/src/${NAME}; \
 	fi;
@@ -47,6 +47,7 @@ base:
 	@if [[ -L $$GOPATH/src/${NAME}&& -d $$GOPATH/src/${NAME} ]]; then \
 		echo "Skip Linked"; \
 	else \
+		# Link  $$GOPATH/src/${NAME} to ${ACTUAL}/${NAME}
 		ln -sf ${ACTUAL}/${NAME} $$GOPATH/src/${NAME}; \
 		echo "Compiling ..."; \
 	fi;
