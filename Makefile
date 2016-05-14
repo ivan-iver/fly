@@ -9,6 +9,13 @@ export NAME
 export PKGNAME
 export VERSION
 
+package: build
+	@sed -i '' -e '1s/\(.*\)/${VERSION}/g' ${NAME}/app.conf
+	@cp -r ${ACTUAL}/${NAME}/app.conf bin/;
+	@tar -zcf ${PKGNAME} bin;
+	@rm -rf ${ACTUAL}/bin;
+	@echo "Package done! ... you can run deploy.sh script from yout host machine.";
+
 install: base get
 
 get:
@@ -43,13 +50,6 @@ base:
 		ln -sf ${ACTUAL}/${NAME} $$GOPATH/src/${NAME}; \
 		echo "Compiling ..."; \
 	fi;
-
-package: build
-	@sed -i -e '2s/\(.*\)/${VERSION}/g' ${NAME}/app.conf
-	@cp -r ${ACTUAL}/${NAME}/app.conf bin/;
-	@tar -zcf ${PKGNAME} bin;
-	@rm -rf ${ACTUAL}/bin;
-	@echo "Package done! ... you can run deploy.sh script from yout host machine.";
 
 uninstall:
 	@unlink ${GOPATH}/src/${NAME};
