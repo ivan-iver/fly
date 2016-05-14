@@ -22,6 +22,9 @@ get:
 build: install
 	@go build -o bin/${NAME} fly;
 	@cp ${ACTUAL}/fly/app.conf bin/;
+	@cp ${ACTUAL}/fly/README.md bin/;
+	@cp -r ${ACTUAL}/fly/assets bin/;
+	@cp -r ${ACTUAL}/fly/templates bin/;
 	@mkdir -p bin/log/;
 
 base:

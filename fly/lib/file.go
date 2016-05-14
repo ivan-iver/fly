@@ -33,7 +33,6 @@ func (f *File) Read() (result interface{}, err error) {
 		result = template.HTML(md)
 	} else {
 		f.Format = ""
-		log.Printf("data.algo mas: %s", data)
 		result = string(data)
 	}
 	return
