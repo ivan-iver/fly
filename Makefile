@@ -45,7 +45,7 @@ base:
 		echo "Skip Linked"; \
 	else \
 		echo "Linking package ..."; \
-		ln -sf ${ACTUAL}/${NAME} ${GOPATH}/src/${NAME}/; \
+		ln -sf ${ACTUAL}/${NAME} ${GOPATH}/src/${NAME}; \
 	fi;
 	ls -al ${GOPATH}/src/${NAME};
 	ls -al ${GOPATH}/src/${NAME}/;
@@ -53,10 +53,10 @@ base:
 uninstall:
 	# Start uninstall
 	@if [[ -d ${GOPATH}/src/${NAME} ]]; then \
-		@echo "Removing directory"; \
+		echo "Removing directory"; \
 		rm -rf ${GOPATH}/src/${NAME}; \
 	else \
-		@echo "Unlink package"; \
+		echo "Unlink package"; \
 		unlink ${GOPATH}/src/${NAME}; \
 	fi;
 	@rm -f ${GOPATH}/bin/${NAME};
