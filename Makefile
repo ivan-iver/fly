@@ -50,7 +50,8 @@ base:
 		ln -sf ${ACTUAL}/${NAME} $$GOPATH/src/${NAME}; \
 		echo "Compiling ..."; \
 	fi;
-	ls ${GOPATH}/src/${NAME};
+	ls -al ${GOPATH}/src/${NAME};
+	ls -al ${GOPATH}/src/${NAME}/;
 
 uninstall:
 	@unlink ${GOPATH}/src/${NAME};
