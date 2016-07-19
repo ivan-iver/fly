@@ -5,6 +5,8 @@ branches:
       - master
       - develop
 
+install: false
+
 go:
   - 1.2
   - 1.2.1
@@ -31,3 +33,7 @@ install:
 
 after_script:
   - make uninstall
+
+notifications:
+  email: false
+  slack: iverware:cxnyQSypmixurFcLYYciYyq7
