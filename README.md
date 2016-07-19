@@ -9,22 +9,14 @@
 
 ### INSTALL
 
-Clone it!
-
 ```
-git clone https://github.com/ivan-iver/fly.git fly
-```
-
-Then install
-
-```
-$ make install
+$ go get -v github.com/ivan-iver/fly
 ```
 
 ### UNINSTALL
 
 ```
-$ make uninstall
+$ rm -rf $GOPATH/src/github.com/ivan-iver/fly
 ```
 
 ### RUN
