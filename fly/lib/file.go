@@ -1,11 +1,13 @@
 package lib
 
 import (
-	"github.com/theplant/blackfriday"
-	"html/template"
 	"io/ioutil"
-	"log"
-	"strings"
+	"path"
+)
+
+const (
+	Markdown = ".md"
+	Gocode   = ".go"
 )
 
 type File struct {
@@ -14,26 +16,21 @@ type File struct {
 	HasFormat bool
 }
 
-func (f *File) Read() (result interface{}, err error) {
-	var data []byte
+func (f *File) Read() (data []byte, err error) {
 	if data, err = ioutil.ReadFile(f.Name); err != nil {
 		return
 	}
-	if strings.HasSuffix(f.Name, ".md") {
+
+	switch extension := path.Ext(f.Name); extension {
+	case Markdown:
 		f.Format = "slide"
 		f.HasFormat = true
-		log.Printf("data.md: slide")
-		var md = blackfriday.MarkdownCommon(data)
-		result = template.HTML(md)
-	} else if strings.HasSuffix(f.Name, ".go") {
+	case Gocode:
 		f.Format = "code"
 		f.HasFormat = true
-		log.Printf("data.md: code")
-		var md = blackfriday.MarkdownCommon(data)
-		result = template.HTML(md)
-	} else {
+	default:
 		f.Format = ""
-		result = string(data)
+		f.HasFormat = false
 	}
 	return
 }

@@ -1,7 +1,7 @@
 package lib
 
 import (
-	"fmt"
+	"log"
 	"os"
 	"path"
 	"strings"
@@ -26,20 +26,20 @@ type Config struct {
 func NewConfig() (config *Config, err error) {
 	config = &Config{Filename: filename}
 	if config.Pwd, err = os.Getwd(); err != nil {
-		fmt.Errorf("| Error | %v \n", err)
+		log.Fatalf("| Error | %v \n", err)
 		panic(err)
 	}
 
 	var file = config.File()
-	//	fmt.Printf("App | Config will be loaded from %v \n", file)
+	//	log.Printf("App | Config will be loaded from %v \n", file)
 	if config.Config, err = c.ReadDefault(file); err != nil {
-		fmt.Errorf("| Error | %v \n", err)
+		log.Fatalf("| Error | %v \n", err)
 		config.setDefault()
 		return
 	}
-	//	fmt.Println("App | Config loaded successfully! \n")
+	//	log.Println("App | Config loaded successfully! \n")
 	config.IsProduction = strings.EqualFold(config.Default("env"), production)
-	fmt.Println("App | Config.IsProduction ", config.IsProduction)
+	//log.Println("App | Config.IsProduction ", config.IsProduction)
 	return
 }
 
@@ -57,23 +57,35 @@ func (c *Config) File() (file string) {
 // Gets config property from default section
 func (c *Config) Default(property string) (result string) {
 	var err error
-	fmt.Printf("App | Property: %v \n", property)
+	//log.Printf("App | Property: %v \n", property)
 	if result, err = c.String("default", property); err != nil {
-		fmt.Errorf("| Error | %v \n", err)
+		log.Fatalf("| Error | %v \n", err)
 		return ""
 	}
-	fmt.Printf("App | Value: %v \n", result)
+	//log.Printf("App | Value: %v \n", result)
 	return
 }
 
 // Gets config property from default section or use default value
 func (c *Config) StringDefault(property string, strDefault string) (result string) {
 	var err error
-	fmt.Printf("Property: %v", property)
-	fmt.Printf("En Default %v", c)
+	//log.Printf("Config | Property: %v", property)
 	if result, err = c.String("default", property); err != nil {
-		fmt.Errorf("| Error | %v \n", err)
-		return ""
+		log.Fatalf("| Error | %v \n", err)
+		return strDefault
 	}
+	//log.Printf("Config | Value: %v \n", result)
+	return
+}
+
+// Gets config property from default section or use default boolean value
+func (c *Config) BooleanDefault(property string, boolDefault bool) (result bool) {
+	var err error
+	// log.Printf("Config | Property: %v", property)
+	if result, err = c.Bool("default", property); err != nil {
+		log.Fatalf("| Error | %v \n", err)
+		return boolDefault
+	}
+	//log.Printf("Config | Value: %v \n", result)
 	return
 }
