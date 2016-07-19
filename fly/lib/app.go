@@ -6,9 +6,11 @@ import (
 )
 
 const (
+	appName = "Fly"
 	desc    = "Lightweight server with markdown support"
 	portMsg = "Port number is required 8080 is default port"
 	version = "Fly Server version v0.0.1"
+	hash    = "build:(3a182bf)"
 )
 
 type App struct {
@@ -21,18 +23,22 @@ type App struct {
 func NewApp() (application *App) {
 	config, _ := NewConfig()
 	application = &App{
-		app:    kingpin.New("Fly", desc),
+		app:    kingpin.New(appName, desc),
 		Config: config,
 		Log:    NewLogger(config),
-		Server: &Server{},
+		Server: &Server{
+			Index: config.StringDefault("index", "index.md"),
+			Debug: config.BooleanDefault("debug", true),
+		},
 	}
+	application.Log.Printf("Server: %v - Debud: %v", application.Index, application.Debug)
+	kingpin.Version(application.Version())
 	application.required()
 	return
 }
 
 func (a *App) Version() (v string) {
-	var conf = a.Config.Default
-	v = fmt.Sprintf("%v build(%s)", version, conf("app.version"))
+	v = fmt.Sprintf("%v %s", version, hash)
 	a.app.Version(v)
 	return
 }
