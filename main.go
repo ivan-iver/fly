@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fly/lib"
+	"github.com/ivan-iver/fly/lib"
 	"os"
 )
 
