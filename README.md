@@ -12,7 +12,7 @@
 Clone it!
 
 ```
-git clone https://github.com/ivan-iver/config.git ~/Config
+git clone https://github.com/ivan-iver/fly.git fly
 ```
 
 Then install
