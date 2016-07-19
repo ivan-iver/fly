@@ -40,5 +40,3 @@ $ ./fly
 ***
 
 Copyright (c) 2014-2015 Iván Jaimes. See [LICENSE](LICENSE) for details.
-
----

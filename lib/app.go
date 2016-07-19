@@ -10,7 +10,7 @@ const (
 	desc    = "Lightweight server with markdown support"
 	portMsg = "Port number is required 8080 is default port"
 	version = "Fly Server version v0.0.1"
-	hash    = "build:(ffe2bbc)"
+	hash    = "build:(bfdd056)"
 )
 
 type App struct {
