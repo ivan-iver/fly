@@ -2,7 +2,7 @@ SHELL		:= bash
 ACTUAL := $(shell pwd)
 NAME := fly
 PKGNAME := fly.tar.gz
-VERSION := app.version\=\($(shell git rev-parse --short HEAD)\)
+VERSION := "build\:\($(shell git rev-parse --short HEAD)\)"
 
 export ACTUAL
 export NAME
@@ -10,6 +10,7 @@ export PKGNAME
 export VERSION
 
 build: install
+	@sed -i '' -E "s/build\:\([a-zA-Z0-9]*\)/${VERSION}/g" ${NAME}/lib/app.go
 	@go build -o bin/${NAME} fly;
 	@cp ${ACTUAL}/fly/app.conf bin/;
 	@cp ${ACTUAL}/fly/README.md bin/;
@@ -42,7 +43,6 @@ base:
 	fi;
 
 package: build
-	@sed -i '' -e '1s/\(.*\)/${VERSION}/g' ${NAME}/app.conf
 	@cp -r ${ACTUAL}/${NAME}/app.conf bin/;
 	@tar -zcf ${PKGNAME} bin;
 	@rm -rf ${ACTUAL}/bin;
