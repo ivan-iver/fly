@@ -10,7 +10,7 @@ const (
 	desc    = "Lightweight server with markdown support"
 	portMsg = "Port number is required 8080 is default port"
 	version = "Fly Server version v0.0.1"
-	hash    = "build:(3a182bf)"
+	hash    = "build:(ffe2bbc)"
 )
 
 type App struct {
@@ -29,6 +29,7 @@ func NewApp() (application *App) {
 		Server: &Server{
 			Index: config.StringDefault("index", "index.md"),
 			Debug: config.BooleanDefault("debug", true),
+			Path:  config.StringDefault("path", ""),
 		},
 	}
 	application.Log.Printf("Server: %v - Debud: %v", application.Index, application.Debug)

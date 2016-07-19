@@ -12,6 +12,7 @@ type Server struct {
 	Debug bool
 	Index string
 	Port  string
+	Path  string
 	*render.Render
 }
 
@@ -34,6 +35,7 @@ func (s *Server) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
 	if r.URL.Path == "/" {
 		file.Name = s.Index
 	}
+	file.Path = s.Path
 	var data []byte
 	var err error
 	if data, err = file.Read(); err != nil {

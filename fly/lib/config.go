@@ -71,7 +71,7 @@ func (c *Config) StringDefault(property string, strDefault string) (result strin
 	var err error
 	//log.Printf("Config | Property: %v", property)
 	if result, err = c.String("default", property); err != nil {
-		log.Fatalf("| Error | %v \n", err)
+		//		log.Fatalf("| Error | %v \n", err)
 		return strDefault
 	}
 	//log.Printf("Config | Value: %v \n", result)
