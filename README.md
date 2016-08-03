@@ -17,16 +17,21 @@ Is a lightweight server with markdown support. Fly is ideal to serve static HTML
 This project is under construction and could be not work correctly right now. If you wish to test it you can: 
 
 * Clone it
+
   ```
   $ mkdir -p $GOPATH/src/github.com/ivan-iver/
   $ git clone http://github.com/ivan-iver/fly $GOPATH/src/github.com/ivan-iver/fly
   $ cd $GOPATH/src/github.com/ivan-iver/fly
   ```
+  
 * Compile it
+
   ```
   $ make build
   ```
+  
 * Run it
+
   ```
   $ cd bin/
   $ ./fly

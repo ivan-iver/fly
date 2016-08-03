@@ -32,7 +32,7 @@ func NewConfig() (config *Config, err error) {
 
 	var file = config.File()
 	//	log.Printf("App | Config will be loaded from %v \n", file)
-	if config.Config, err = c.ReadDefault(file); err != nil {
+	if config.Config, err = conf.ReadDefault(file); err != nil {
 		log.Fatalf("| Error | %v \n", err)
 		config.setDefault()
 		return
