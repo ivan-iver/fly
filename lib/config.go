@@ -6,7 +6,7 @@ import (
 	"path"
 	"strings"
 
-	c "bitbucket.org/ivan-iver/config"
+	conf "bitbucket.org/ivan-iver/config"
 )
 
 var (
@@ -14,15 +14,15 @@ var (
 	filename   = `app.conf`
 )
 
-// Models an entity config reader
+// Config models an entity config reader
 type Config struct {
 	Pwd          string
 	Filename     string
 	IsProduction bool
-	*c.Config
+	*conf.Config
 }
 
-// Creates a config struct
+// NewConfig creates a config struct.
 func NewConfig() (config *Config, err error) {
 	config = &Config{Filename: filename}
 	if config.Pwd, err = os.Getwd(); err != nil {
@@ -44,17 +44,17 @@ func NewConfig() (config *Config, err error) {
 }
 
 // Set default values when config file does not exists
-func (x *Config) setDefault() {
-	x.Config = &c.Config{}
-	x.IsProduction = false
+func (c *Config) setDefault() {
+	c.Config = &conf.Config{}
+	c.IsProduction = false
 }
 
-// Returns configuration file path
+// File function  returns configuration file path
 func (c *Config) File() (file string) {
 	return path.Join(c.Pwd, c.Filename)
 }
 
-// Gets config property from default section
+// Default function gets config property from default section
 func (c *Config) Default(property string) (result string) {
 	var err error
 	//log.Printf("App | Property: %v \n", property)
@@ -66,7 +66,7 @@ func (c *Config) Default(property string) (result string) {
 	return
 }
 
-// Gets config property from default section or use default value
+// StringDefault gets config property from default section or use default value
 func (c *Config) StringDefault(property string, strDefault string) (result string) {
 	var err error
 	//log.Printf("Config | Property: %v", property)
@@ -78,7 +78,7 @@ func (c *Config) StringDefault(property string, strDefault string) (result strin
 	return
 }
 
-// Gets config property from default section or use default boolean value
+// BooleanDefault function gets config property from default section or use default boolean value
 func (c *Config) BooleanDefault(property string, boolDefault bool) (result bool) {
 	var err error
 	// log.Printf("Config | Property: %v", property)

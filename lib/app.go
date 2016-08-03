@@ -1,3 +1,4 @@
+// Package lib contains all project logic.
 package lib
 
 import (
@@ -13,6 +14,7 @@ const (
 	hash    = "build:(bfdd056)"
 )
 
+// App models current application
 type App struct {
 	app    *kingpin.Application
 	Log    *Logger
@@ -20,6 +22,7 @@ type App struct {
 	*Server
 }
 
+// NewApp provides a new App struct with its initializated fields
 func NewApp() (application *App) {
 	config, _ := NewConfig()
 	application = &App{
@@ -38,12 +41,14 @@ func NewApp() (application *App) {
 	return
 }
 
+// Version function returns the application version
 func (a *App) Version() (v string) {
 	v = fmt.Sprintf("%v %s", version, hash)
 	a.app.Version(v)
 	return
 }
 
+// Parse function process the arguments
 func (a *App) Parse(args []string) {
 	kingpin.MustParse(a.app.Parse(args))
 }
@@ -52,6 +57,7 @@ func (a *App) required() {
 	a.app.Flag("port", portMsg).Short('P').Default("8080").StringVar(&a.Port)
 }
 
+// Run is invoked to start the server application logic.
 func (a *App) Run() {
 	if err := a.Server.Run(); err != nil {
 		panic(err)
