@@ -2,13 +2,16 @@
 
 ***
 
-[![Travis Widget]][Travis] [![Report Card]][Report]
+[![Travis Widget]][Travis] [![Report Card]][Report] [![GoDoc]][DocFly]
 
 [Travis]: https://travis-ci.org/ivan-iver/fly
 [Travis Widget]: https://travis-ci.org/ivan-iver/fly.svg?branch=master
 
 [Report Card]: https://goreportcard.com/badge/github.com/ivan-iver/fly
 [Report]: https://goreportcard.com/report/github.com/ivan-iver/fly
+
+[GoDoc]: https://godoc.org/github.com/ivan-iver/fly?status.svg
+[DocFly]: https://godoc.org/github.com/ivan-iver/fly
 
 Is a lightweight server with markdown support. Fly is ideal to serve static HTML content on the network using a predefined layout template.
 
