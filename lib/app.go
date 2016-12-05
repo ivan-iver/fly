@@ -14,6 +14,7 @@ const (
 )
 
 var hash string
+var log *Logger
 
 // App models current application
 type App struct {
@@ -29,14 +30,15 @@ func NewApp() (application *App) {
 	application = &App{
 		app:    kingpin.New(appName, desc),
 		Config: config,
-		Log:    NewLogger(config),
+		Log:    GetLogger(),
 		Server: &Server{
 			Index: config.StringDefault("index", "index.md"),
 			Debug: config.BooleanDefault("debug", true),
 			Path:  config.StringDefault("path", ""),
 		},
 	}
-	application.Log.Printf("Server: %v - Debud: %v", application.Index, application.Debug)
+	log = application.Log
+	log.Info("Server - Debug: ", application.Index, application.Debug)
 	kingpin.Version(application.Version())
 	application.required()
 	return

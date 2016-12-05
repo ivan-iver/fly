@@ -1,69 +1,27 @@
 package lib
 
 import (
-	"bytes"
-	"encoding/gob"
-	"fmt"
 	"os"
-	"time"
 
-	log "github.com/sirupsen/logrus"
+	"github.com/op/go-logging"
 )
 
-type CustomFormatter struct {
-}
+var format = logging.MustStringFormatter(
+	`%{color}%{time:15:04:05.000} %{shortfunc} ▶ %{level:.4s} %{id:03x}%{color:reset} %{message}`,
+)
 
-func (f *CustomFormatter) Format(entry *log.Entry) (result []byte, err error) {
-	data := map[string]interface{}{
-		"time":  entry.Time.Format(time.RFC3339),
-		"msg":   entry.Message,
-		"level": entry.Level.String(),
-	}
-	for k, v := range entry.Data {
-		switch v := v.(type) {
-		case error:
-			data[k] = v.Error()
-		default:
-			data[k] = v
-		}
-	}
-
-	buffer := new(bytes.Buffer)
-	if err = gob.NewEncoder(buffer).Encode(data); err != nil {
-		log.Fatal(err)
-	}
-	result = buffer.Bytes()
-
-	return result, nil
-}
-
+// Logger represents a logger strut
 type Logger struct {
-	*log.Logger
-	*Config
+	*logging.Logger
 }
 
-func NewLogger(config *Config) (l *Logger) {
-	l = &Logger{
-		Logger: log.New(),
-		Config: config,
+// GetLogger configure and returns logger struct
+func GetLogger() (l *Logger) {
+	var log = &Logger{
+		Logger: logging.MustGetLogger("fly"),
 	}
-	log.SetFormatter(&log.TextFormatter{})
-	l.setOutput()
-	return
-}
-
-func (c *Logger) setOutput() {
-	var name string = "fly.log"
-	output := fmt.Sprintf("log/%v", name)
-	file, err := os.OpenFile(output, os.O_CREATE|os.O_RDWR|os.O_APPEND, 0666)
-	if err != nil {
-		fmt.Errorf("| Error | Opening file: %v \n", err)
-		return
-	}
-	log.SetOutput(file)
-}
-
-func (c *Logger) Printf(format string, args ...interface{}) {
-	fields := log.Fields{"Data": args}
-	log.WithFields(fields).Info(format)
+	var backend = logging.NewLogBackend(os.Stderr, "", 0)
+	var formated = logging.NewBackendFormatter(backend, format)
+	logging.SetBackend(formated)
+	return log
 }

@@ -4,10 +4,10 @@ import (
 	"github.com/theplant/blackfriday"
 	"gopkg.in/unrolled/render.v1"
 	"html/template"
-	"log"
 	"net/http"
 )
 
+// Server represents web server logic and attributes
 type Server struct {
 	Debug bool
 	Index string
@@ -16,8 +16,9 @@ type Server struct {
 	*render.Render
 }
 
+// Run publish the web server
 func (s *Server) Run() (err error) {
-	log.Println("Listening on port", s.Port)
+	log.Info("Listening on port", s.Port)
 	s.Render = render.New(render.Options{
 		Layout:        "layout",
 		IsDevelopment: true,
@@ -26,9 +27,10 @@ func (s *Server) Run() (err error) {
 	return
 }
 
+// ServerHTTP is the handler function to publish into web server
 func (s *Server) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
 	if s.Debug {
-		log.Printf("URL: %v", r.URL)
+		log.Debug("URL:", r.URL)
 	}
 	var file = File{Name: r.URL.Path[1:]}
 
@@ -50,12 +52,14 @@ func (s *Server) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
 	s.Show(rw, r)
 }
 
+// ShowMarkdown contains generation logic from markdown to html.
 func (s *Server) ShowMarkdown(rw http.ResponseWriter, data []byte, file File) {
 	md := blackfriday.MarkdownCommon(data)
 	var result = template.HTML(md)
 	s.Render.HTML(rw, 200, file.Format, result)
 }
 
+// Show is the function that publish all files in the directory.
 func (s *Server) Show(rw http.ResponseWriter, r *http.Request) {
 	fs := http.FileServer(http.Dir("."))
 	fs.ServeHTTP(rw, r)
