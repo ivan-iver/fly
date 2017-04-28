@@ -9,7 +9,7 @@ export NAME
 export PKGNAME
 export VERSION
 
-build: get
+build:
 #	@sed -i '' -e "s/build\:\([a-zA-Z0-9]*\)/${VERSION}/g" lib/app.go
 	go build -ldflags "-X github.com/ivan-iver/fly/lib.hash=${VERSION}" -o bin/${NAME} github.com/ivan-iver/fly;
 	@cp ${ACTUAL}/app.conf bin/;
