@@ -5,7 +5,8 @@ branches:
       - master
       - develop
 
-install: false
+install:
+  - make get
 
 go:
   - 1.3
