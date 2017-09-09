@@ -11,7 +11,7 @@ export VERSION
 
 build:
 #	@sed -i '' -e "s/build\:\([a-zA-Z0-9]*\)/${VERSION}/g" lib/app.go
-	go build -ldflags "-X github.com/ivan-iver/fly/lib.hash=${VERSION}" -o bin/${NAME} github.com/ivan-iver/fly;
+	go build -ldflags "-X github.com/iver/fly/lib.hash=${VERSION}" -o bin/${NAME} github.com/iver/fly;
 	@cp ${ACTUAL}/app.conf bin/;
 	@cp ${ACTUAL}/README.md bin/;
 	@cp -r ${ACTUAL}/assets bin/;
