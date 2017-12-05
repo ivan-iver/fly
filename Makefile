@@ -11,20 +11,21 @@ export VERSION
 
 build:
 #	@sed -i '' -e "s/build\:\([a-zA-Z0-9]*\)/${VERSION}/g" lib/app.go
-	go build -ldflags "-X github.com/ivan-iver/fly/lib.hash=${VERSION}" -o bin/${NAME} github.com/ivan-iver/fly;
+	go build -ldflags "-X github.com/iver/fly/lib.hash=${VERSION}" -o bin/${NAME} github.com/iver/fly;
 	@cp ${ACTUAL}/app.conf bin/;
 	@cp ${ACTUAL}/README.md bin/;
 	@cp -r ${ACTUAL}/assets bin/;
 	@cp -r ${ACTUAL}/templates bin/;
 	@mkdir -p bin/log/;
 
-get:
-	go get -v bitbucket.org/ivan-iver/config;
-	go get -v gopkg.in/alecthomas/kingpin.v2;
-	go get -v bitbucket.org/ivan-iver/config;
-	go get -v github.com/op/go-logging;
-	go get -v gopkg.in/unrolled/render.v1;
-	go get -v github.com/theplant/blackfriday;
+test:
+	@go test -v -covermode=count -coverprofile=coverage.out
+	@${HOME}/gopath/bin/goveralls -coverprofile=coverage.out -service=travis-ci -repotoken ${COVERALLS_TOKEN}
+
+init:
+	@mkdir -p bin;
+	@./scripts/install.sh;
+#	@curl https://glide.sh/get | sh;
 
 package: build
 	@cp -r ${ACTUAL}/app.conf bin/;

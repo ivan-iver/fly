@@ -1,43 +1,41 @@
 language: go
-
 branches:
   only:
-      - master
-      - develop
-
+  - master
+  - develop
 go:
-  - 1.3
-  - 1.3.1
-  - 1.3.2
-  - 1.3.3
-  - 1.4
-  - 1.4.1
-  - 1.4.2
-  - 1.4.3
-  - 1.5
-  - 1.5.1
-  - 1.5.2
-  - 1.5.3
-  - 1.5.4
-  - 1.6
-  - 1.6.1
-  - 1.6.2
-  - 1.6.3
-  - 1.6.4
-  - 1.7
-  - 1.7.1
-  - 1.7.2
-  - 1.7.3
-  - 1.7.4
-  - 1.8
-
+- 1.3
+- 1.3.1
+- 1.3.2
+- 1.3.3
+- 1.4
+- 1.4.1
+- 1.4.2
+- 1.4.3
+- 1.5
+- 1.5.1
+- 1.5.2
+- 1.5.3
+- 1.5.4
+- 1.6
+- 1.6.1
+- 1.6.2
+- 1.6.3
+- 1.6.4
+- 1.7
+- 1.7.1
+- 1.7.2
+- 1.7.3
+- 1.7.4
+- 1.8
 install:
-  - make get
-  - make build
-
+- make get
+- make build
 after_script:
-  - make uninstall
-
+- make uninstall
 notifications:
   email: false
   slack: iverware:cxnyQSypmixurFcLYYciYyq7
+env:
+  global:
+    secure: GVrd4G1xQpe6M2yLGtPq1yEM8BYyMSl4tW/5DSZEAjSCL4x8iAxbJ4T2o4tct7GAchAxGtZ6idyaGJ2B4i0tI+oPTlsslv5GlO/cPyNfcj6X0dX9er4Bgpo9z4HGCWfKYckSnTLwlWr5EN2IQjBnOUIOF8q8pV9anSMnHjkfZC5Vbpkuw0zPQSiw14p1ml3D/F++qH9FF+96r4/a4H8FBSKnNcN2Ld42Jh2H25hbluahNboFNZiRWQQ6FU40xba5YfOFVcHzw/3T9tDPtfA5L+kuTZzSmbhbrLG42TIeuCHEgnOdqOLIaFKyTTze4EYyekJXIf/X2KnNfzwzYr+INLX7XO4adIu4miTo0smCKbtPvWlnso8/nFrHoe5FhhZKoxy7TAQritaiKaJ9u3zv298Oy75eHmGHFrwo/fSWSaipNyOA/v/2cB+FudkHBIBufVSY28fnSwXAwwG2JhcEFUFIia7QyGB+oE7P8ZQyQpKJ7LHUjp93cNoXyqvG2RWQxm2SDHxtVGF+ZsJK6ASGPxtFFEuj+P07k50g2tX7FGc7cVfPZXpH1QhwDch+REudvVhejFJBmjMX6Kxtuam6ncLmmvC4yWlyQ2N54kcFzBGbznYW4ureQHsg5YThlw2NeS9ScYr/qaVWtTu2rvesztHPZA3gAlZJyytinaU+9+g=
