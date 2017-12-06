@@ -29,7 +29,7 @@ go:
 - 1.7.4
 - 1.8
 install:
-- make get
+- make install
 - make build
 after_script:
 - make uninstall
