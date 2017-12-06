@@ -30,9 +30,14 @@ go:
 - 1.8
 install:
 - make init
+
+script:
 - make build
+- make test
+
 after_script:
 - make uninstall
+
 notifications:
   email: false
   slack: iverware:cxnyQSypmixurFcLYYciYyq7
