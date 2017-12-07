@@ -19,8 +19,8 @@ build:
 	@mkdir -p bin/log/;
 
 test:
-	@go test -v -covermode=count -coverprofile=coverage.out
-	@${HOME}/gopath/bin/goveralls -coverprofile=coverage.out -service=travis-ci -repotoken ${COVERALLS_TOKEN}
+	@go test -v ./lib/... -covermode=count -coverprofile=coverage.out
+	@goveralls -coverprofile=coverage.out -service=travis-ci -repotoken ${COVERALLS_TOKEN}
 
 init:
 	@mkdir -p bin;
