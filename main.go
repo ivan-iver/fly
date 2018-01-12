@@ -14,6 +14,7 @@ func main() {
 			log.Printf("| Fatal Error | Stack:  %v", string(debug.Stack()))
 		}
 	}()
+
 	var app = lib.NewApp()
 	app.Parse(os.Args[1:])
 	app.Run()
