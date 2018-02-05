@@ -3,8 +3,8 @@ set -o errexit
 set -o nounset
 
 export ACTUAL=`pwd`
-export PKG=github.com/dherby/lipu-api
-export BIN=lipu-api
+export PKG=github.com/iver/fly
+export BIN=fly
 
 echo "READ VERSION FROM TAGS ...";
 
