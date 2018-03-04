@@ -8,10 +8,13 @@ import (
 )
 
 const (
+	// Markdown file extension
 	Markdown = ".md"
-	Gocode   = ".go"
+	// Gocode is a file extension constant
+	Gocode = ".go"
 )
 
+// File models a file into file system
 type File struct {
 	Name      string
 	Path      string
@@ -19,17 +22,25 @@ type File struct {
 	HasFormat bool
 }
 
-// Returns absolute file name
-func (self *File) AbsoluteName() string {
-	if len(self.Path) == 0 {
-		self.Path, _ = self.Pwd()
+// AbsoluteName returns absolute file name
+func (f *File) AbsoluteName() string {
+	if len(f.Path) == 0 {
+		f.Path, _ = f.Pwd()
 	}
-	return fmt.Sprintf("%v/%v", self.Path, self.Name)
+	return fmt.Sprintf("%v/%v", f.Path, f.Name)
 }
 
-// Gets current directory
-func (self *File) Pwd() (path string, err error) {
+// Pwd gets current directory
+func (f *File) Pwd() (path string, err error) {
 	path, err = os.Getwd()
+	return
+}
+
+// Exists identify if the file exist
+func (f *File) Exists() (exists bool, err error) {
+	if _, err = os.Stat(f.AbsoluteName()); err == nil {
+		exists = true
+	}
 	return
 }
 
