@@ -1,50 +1,48 @@
-SHELL	:= bash
-ACTUAL := $(shell pwd)
-NAME := fly
-PKGNAME := fly.tar.gz
-VERSION := "build\:\($(shell git rev-parse --short HEAD)\)"
+SHELL := bash
 
-export ACTUAL
-export NAME
-export PKGNAME
-export VERSION
+export ACTUAL := $(shell pwd)
+export SCRIPTS_PATH := ${ACTUAL}/scripts
+export OUTPUT_PATH := ${ACTUAL}/bin/
+export DEPLOY_CI_PATH=${ACTUAL}/.ci
+export BIN := fly
+export PKG := ${BIN}.tar.gz
+export REPO_NAME=github.com/iver/fly
+
+# Tarjet options are: MAC | LINUX
+export TARJET_OS := MAC
 
 build:
-#	@sed -i '' -e "s/build\:\([a-zA-Z0-9]*\)/${VERSION}/g" lib/app.go
-	go build -ldflags "-X github.com/iver/fly/lib.hash=${VERSION}" -o bin/${NAME} github.com/iver/fly;
-	@cp ${ACTUAL}/app.conf bin/;
-	@cp ${ACTUAL}/README.md bin/;
-	@cp -r ${ACTUAL}/assets bin/;
-	@cp -r ${ACTUAL}/templates bin/;
-	@mkdir -p bin/log/;
+	${SCRIPTS_PATH}/build.sh;
+
+run:
+	${SCRIPTS_PATH}/run.sh;
 
 test:
-	@go test -v ./lib/... -covermode=count -coverprofile=coverage.out
-	@goveralls -coverprofile=coverage.out -service=travis-ci -repotoken ${COVERALLS_TOKEN}
+	${SCRIPTS_PATH}/test.sh;
 
-init:
-	@mkdir -p bin;
-	@./scripts/install.sh;
-#	@curl https://glide.sh/get | sh;
+package: TARJET_OS := LINUX
+package: clean build
+	${SCRIPTS_PATH}/package.sh;
 
-package: build
-	@cp -r ${ACTUAL}/app.conf bin/;
-	@tar -zcf ${PKGNAME} bin;
-	@rm -rf ${ACTUAL}/bin;
-	@echo "Package done! ... you can run deploy.sh script from yout host machine.";
+deploy: package
+	${SCRIPTS_PATH}/deploy.sh;
+
+install:
+	${SCRIPTS_PATH}/install.sh;
+
+clean:
+	@echo "Removing files ...";
+	@rm -rf ${OUTPUT_PATH} ${PKG}.tar.gz
+	@echo "Done!";
 
 uninstall:
 	# Start uninstall
-	@if [[ -d ${GOPATH}/src/${NAME} ]]; then \
-		echo "Removing directory"; \
-		rm -rf ${GOPATH}/src/${NAME}; \
+	@if [[ -d ${GOPATH}/src/${BIN} ]]; then \
+		echo "Removing package directory"; \
+		rm -rf ${GOPATH}/src/${BIN}; \
 	else \
 		echo "Unlink package"; \
-		unlink ${GOPATH}/src/${NAME}; \
+		unlink ${GOPATH}/src/${BIN}; \
 	fi;
-	@rm -f ${GOPATH}/bin/${NAME};
-
-clean:
-	@rm -rf ${ACTUAL}/${PKGNAME}
-	@rm -rf ${ACTUAL}/bin;
+	@rm -f ${GOPATH}/bin/${BIN};
 
