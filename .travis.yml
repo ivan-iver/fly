@@ -3,41 +3,30 @@ branches:
   only:
   - master
   - develop
+
 go:
-- 1.3
-- 1.3.1
-- 1.3.2
-- 1.3.3
-- 1.4
-- 1.4.1
-- 1.4.2
-- 1.4.3
-- 1.5
-- 1.5.1
-- 1.5.2
-- 1.5.3
-- 1.5.4
-- 1.6
-- 1.6.1
-- 1.6.2
-- 1.6.3
-- 1.6.4
-- 1.7
-- 1.7.1
-- 1.7.2
-- 1.7.3
-- 1.7.4
-- 1.8
+- 1.3.x
+- 1.4.x
+- 1.5.x
+- 1.6.x
+- 1.7.x
+- 1.8.x
+- 1.9.x
+
 install:
-- make init
+- make install
+
 script:
 - make build
 - make test
+
 after_script:
 - make uninstall
+
 notifications:
   email: false
   slack: iverware:cxnyQSypmixurFcLYYciYyq7
+
 env:
   global:
     secure: xcz8lT3xxhW9KsjI1b7yBEEtf7q+PgbY32tedteQLZiucIWQjAJNaW/D0Ej2Zg09dhgud6Q3kzIn0loer1WyIKF0+fyVzPz0yHOSC37+IXHtwFt3WCk6Ow/ZXbh9T51/I9UBpOTT0AVL4eFL8gDzJLZAAnPOicHKnk20Qgtk3QTgpJoGoUfcuxnPUu4T3pZheYFBBrM9wpwaPChFetk8Z+KIFLEl6mMEQPmxJvzEFft0fvwxnuQflealyZCsgWqO8sP86GmzWtH/6alHhtoY0tsMnc2Jj1723jfWB/8YG98hS6cZIxJBRBA/lfu3iumyYPaq+n2AlxwsBtC3FMhWzjOePQwd9vk/pXomfseitxGLfTUOj5bv2VORGdEDxbFmy6xVZ2/ny7OyaX5eQMxf2BFPDPD5dfyM/HUFrvK9E+a4tFVfcjVZ4fLwXumWA8A/RNYVudvoXFHPL2OQXLyOWDwj7AxMk+I91a62Zm42sSDDOL9yv/afqSgDhS6BdsgHMw5iDWwQeOU/PotbPD4v06P9uPTxhFVr9OBRhTLGWd1H632i4lN3/RW5C6sX3GePM0gX6T5tJ3nN4xAl+jYpirlhJp0Whl3b6/A4EMFG2dHZfGWuGZeuVD9mROFqiMgXpZnE6lHRwcDmIonRuUyMcT5ef6BRZ6u3izfgaXENsBg=

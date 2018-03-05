@@ -40,7 +40,7 @@ func NewConfig() (config *Config, err error) {
 
 // Set default values when config file does not exists
 func (c *Config) setDefault(err error) {
-	log.Warning("Config file missing. Using default settings. ", err)
+	log.Debug("Config file missing. Using default settings. ", err)
 	c.Config = &conf.Config{}
 	c.IsProduction = false
 }
@@ -54,7 +54,7 @@ func (c *Config) File() (file string) {
 func (c *Config) Default(property string) (result string) {
 	var err error
 	if result, err = c.String("default", property); err != nil {
-		log.Warning(err)
+		log.Debug(err)
 		return ""
 	}
 	return
@@ -64,7 +64,7 @@ func (c *Config) Default(property string) (result string) {
 func (c *Config) StringDefault(property string, strDefault string) (result string) {
 	var err error
 	if result, err = c.String("default", property); err != nil {
-		log.Warning(err)
+		log.Debug(err)
 		return strDefault
 	}
 	return
@@ -74,7 +74,7 @@ func (c *Config) StringDefault(property string, strDefault string) (result strin
 func (c *Config) BooleanDefault(property string, boolDefault bool) (result bool) {
 	var err error
 	if result, err = c.Bool("default", property); err != nil {
-		log.Warning(err)
+		log.Debug(err)
 		return boolDefault
 	}
 	return

@@ -25,9 +25,15 @@ type App struct {
 }
 
 // NewApp provides a new App struct with its initializated fields
-func NewApp() (application *App) {
-	log = GetLogger()
-	config, _ := NewConfig()
+func NewApp() (application *App, err error) {
+	config, err := NewConfig()
+	if err != nil {
+		return
+	}
+	log, err = GetLogger(config.StringDefault("logfile", "logs/error.log"))
+	if err != nil {
+		return
+	}
 	application = &App{
 		app:    kingpin.New(appName, desc),
 		Config: config,
@@ -38,8 +44,7 @@ func NewApp() (application *App) {
 			Path:  config.StringDefault("path", ""),
 		},
 	}
-	//log = application.Log
-	log.Infof("Reading %v - Is debug: %v", application.Index, application.Debug)
+	log.Debugf("Reading %v - Is debug: %v", application.Index, application.Debug)
 	kingpin.Version(application.Version())
 	application.required()
 	return

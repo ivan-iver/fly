@@ -15,7 +15,10 @@ func main() {
 		}
 	}()
 
-	var app = lib.NewApp()
-	app.Parse(os.Args[1:])
-	app.Run()
+	if app, err := lib.NewApp(); err == nil {
+		app.Parse(os.Args[1:])
+		app.Run()
+	} else {
+		os.Exit(1)
+	}
 }

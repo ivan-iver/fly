@@ -13,15 +13,30 @@ var format = logging.MustStringFormatter(
 // Logger represents a logger strut
 type Logger struct {
 	*logging.Logger
+	filename string
 }
 
 // GetLogger configure and returns logger struct
-func GetLogger() (l *Logger) {
-	var log = &Logger{
-		Logger: logging.MustGetLogger("fly"),
+func GetLogger(logfile string) (log *Logger, err error) {
+	log = &Logger{
+		Logger:   logging.MustGetLogger("fly"),
+		filename: logfile,
 	}
 	var backend = logging.NewLogBackend(os.Stderr, "", 0)
 	var formated = logging.NewBackendFormatter(backend, format)
 	logging.SetBackend(formated)
-	return log
+	//err = setOutput(log)
+	return
+}
+
+func setOutput(log *Logger) (err error) {
+	f, err := os.OpenFile(log.filename, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
+	if err != nil {
+		return
+	}
+	defer f.Close()
+
+	//log.SetOutput(f)
+	//log.Println("This is a test log entry")
+	return
 }

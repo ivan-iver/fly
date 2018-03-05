@@ -2,7 +2,7 @@
 
 ***
 
-[![Travis Widget]][Travis] [![Report Card]][Report] [![GoDoc]][DocFly]
+[![Travis Widget]][Travis] [![Report Card]][Report] [![GoDoc]][DocFly] [![Coverage]][Status]
 
 [Travis]: https://travis-ci.org/iver/fly
 [Travis Widget]: https://travis-ci.org/iver/fly.svg?branch=master
@@ -13,7 +13,8 @@
 [GoDoc]: https://godoc.org/github.com/iver/fly?status.svg
 [DocFly]: https://godoc.org/github.com/iver/fly
 
-[![Coverage Status](https://coveralls.io/repos/github/iver/fly/badge.svg?branch=develop)](https://coveralls.io/github/iver/fly?branch=develop)
+[Coverage]: https://coveralls.io/repos/github/iver/fly/badge.svg?branch=develop
+[Status]: https://coveralls.io/github/iver/fly?branch=develop
 
 Is a lightweight server with markdown support. Fly is ideal to serve static HTML content on the network using a predefined layout template.
 
@@ -28,6 +29,12 @@ This project is under construction and could be not work correctly right now. If
   $ git clone http://github.com/iver/fly $GOPATH/src/github.com/iver/fly
   $ cd $GOPATH/src/github.com/iver/fly
   ```
+  
+* Install dependencies
+
+  ```
+  $ make install
+  ```
 
 * Compile it
 
@@ -38,8 +45,7 @@ This project is under construction and could be not work correctly right now. If
 * Run it
 
   ```
-  $ cd bin/
-  $ ./fly
+  $ make run
   ```
 
 ## Content
@@ -104,9 +110,7 @@ $ fly
 One way is delete the archive files and executable binaries that go install (or go get) produces for a package something like that:
 
 ```
-$ rm -rf $GOPATH/src/github.com/iver/fly
-$ rm -rf $GOPATH/pkg/darwin_amd64/github.com/iver/
-$ rm -rf $GOPATH/bin/fly
+$ make uninstall
 ```
 
 Or use `go clean -i github.com/iver/fly...` .
