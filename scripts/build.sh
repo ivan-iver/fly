@@ -9,16 +9,7 @@ set -o errexit
 set -o nounset
 
 . ${SCRIPTS_PATH}/env
-
-pcolor "INFO" "READ VERSION FROM TAGS ...";
-
-TAGS=`git fetch --tags`
-CURRENT_TAG=`git describe --tags $(git rev-list --tags --max-count=1) | cut -d'-' -f2`
-HASH=`git rev-parse --short HEAD`
-
-export VERSION="${CURRENT_TAG}-(${HASH})"
-
-pcolor "DEBUG" "VERSION CREATED: ${VERSION} "
+source ${SCRIPTS_PATH}/version.sh
 
 UNAMESTR=`uname -s`;
 pcolor "DEBUG" "Tarjet Operative System is : ${TARJET_OS}";

@@ -32,7 +32,7 @@ install:
 
 clean:
 	@echo "Removing files ...";
-	@rm -rf ${OUTPUT_PATH} ${PKG}.tar.gz
+	@rm -rf ${OUTPUT_PATH} ${PKG}
 	@echo "Done!";
 
 uninstall:

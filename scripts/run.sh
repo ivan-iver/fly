@@ -14,13 +14,12 @@ set -o nounset
 pcolor "INFO" "Creating output folders";
 mkdir -p ${OUTPUT_PATH} && mkdir -p ${OUTPUT_PATH}etc && mkdir -p ${OUTPUT_PATH}logs;
 
-pcolor "INFO" "Starting to pack ${BIN}";
+pcolor "INFO" "Start ... ${BIN}";
 cp ${ACTUAL}/templates/* ${OUTPUT_PATH};
 cp -R ${ACTUAL}/assets/* ${OUTPUT_PATH};
-tar -zcf ${PKG} bin/;
 
-go build -a -o ${OUTPUT_PATH}/${BIN}
+go run -a main.go
 
 pcolor "INFO" "Build done!";
-
+pcolor "INFO" "Execute binary file: ${BIN}";
 cd ${OUTPUT_PATH} && ${BIN};
