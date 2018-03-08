@@ -6,7 +6,11 @@ import (
 )
 
 func TestNewApp(t *testing.T) {
-	app := lib.NewApp()
+	app, err := lib.NewApp()
+
+	if err != nil {
+		t.Errorf("NewApp gets error: %v", err)
+	}
 
 	if app == nil {
 		t.Error("NewApp returns nil")
