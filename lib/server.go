@@ -1,7 +1,7 @@
 package lib
 
 import (
-	"github.com/theplant/blackfriday"
+	"github.com/russross/blackfriday"
 	"gopkg.in/unrolled/render.v1"
 	"html/template"
 	"net/http"
