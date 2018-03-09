@@ -37,13 +37,13 @@ clean:
 
 uninstall:
 	# Start uninstall
-	@if [[ -d ${GOPATH}/src/${PKG} ]]; then \
+	@if [[ -d ${GOPATH}/src/${REPO_NAME} ]]; then \
 		echo "Removing package directory"; \
-		rm -rf ${GOPATH}/src/${PKG}; \
+		rm -rf ${GOPATH}/src/${REPO_NAME}; \
 	else \
 		echo "Unlink package"; \
-		unlink ${GOPATH}/src/${PKG}; \
+		unlink ${GOPATH}/src/${REPO_NAME}; \
 	fi;
-	@rm -f ${GOPATH}/bin/${PKG};
+	@rm -f ${GOPATH}/bin/${BIN};
 	go clean -i github.com/iver/fly;
 
