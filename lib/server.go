@@ -30,7 +30,7 @@ func (s *Server) Run() (err error) {
 // ServerHTTP is the handler function to publish into web server
 func (s *Server) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
 	if s.Debug {
-		log.Debug("URL:", r.URL)
+		log.Debugf("URL: %v", r.URL.Path)
 	}
 	var file = File{Name: r.URL.Path[1:]}
 

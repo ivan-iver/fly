@@ -27,7 +27,9 @@ func (f *File) AbsoluteName() string {
 	if len(f.Path) == 0 {
 		f.Path, _ = f.Pwd()
 	}
-	return fmt.Sprintf("%v/%v", f.Path, f.Name)
+	absName := fmt.Sprintf("%v/%v", f.Path, f.Name)
+	// log.Warningf("AbsName: %v", absName)
+	return absName
 }
 
 // Pwd gets current directory
@@ -46,7 +48,6 @@ func (f *File) Exists() (exists bool, err error) {
 
 // Read file and set Format field
 func (f *File) Read() (data []byte, err error) {
-	fmt.Printf("Path: %v \n", f.AbsoluteName())
 	if data, err = ioutil.ReadFile(f.AbsoluteName()); err != nil {
 		return
 	}

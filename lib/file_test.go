@@ -24,7 +24,12 @@ func TestFile(t *testing.T) {
 	})
 
 	t.Run("Exists()", func(t *testing.T) {
-
+		if ok, err := f.Exists(); err != nil {
+			t.Errorf("Exists was wrong: %v", err)
+		} else if ok == false {
+			t.Errorf("f.Name must be file.go and is %v", f.Name)
+		}
+		fmt.Printf("Salida: %v", f.Name)
 	})
 
 }

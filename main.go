@@ -19,6 +19,7 @@ func main() {
 		app.Parse(os.Args[1:])
 		app.Run()
 	} else {
+		log.Printf("Error creating app: %v", err)
 		os.Exit(1)
 	}
 }
