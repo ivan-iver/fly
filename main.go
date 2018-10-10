@@ -15,11 +15,16 @@ func main() {
 		}
 	}()
 
-	if app, err := lib.NewApp(); err == nil {
+	var app *lib.App
+	var err error
+	if app, err = lib.NewApp(); err == nil {
 		app.Parse(os.Args[1:])
-		app.Run()
 	} else {
 		log.Printf("Error creating app: %v", err)
+		os.Exit(1)
+	}
+	if err = app.Run(); err != nil {
+		log.Printf("Error while running app: %v", err)
 		os.Exit(1)
 	}
 }

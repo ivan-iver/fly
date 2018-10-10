@@ -12,7 +12,7 @@ set -o nounset
 
 pcolor "INFO" "READ VERSION FROM TAGS ...";
 
-TAGS=`git fetch --tags`
+# TAGS=`git fetch --tags`
 CURRENT_TAG=`git describe --tags $(git rev-list --tags --max-count=1) | cut -d'-' -f2`
 HASH=`git rev-parse --short HEAD`
 

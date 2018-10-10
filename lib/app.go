@@ -10,11 +10,13 @@ const (
 	appName = "Fly"
 	desc    = "Lightweight server with markdown support"
 	portMsg = "Port number is required 8080 is default port"
-	version = "Fly Server version v0.0.1"
 )
 
-var hash string
-var log *Logger
+var (
+	hash    string
+	log     *Logger
+	version = "Fly Server version v0.0.1"
+)
 
 // App models current application
 type App struct {
@@ -67,8 +69,7 @@ func (a *App) required() {
 }
 
 // Run is invoked to start the server application logic.
-func (a *App) Run() {
-	if err := a.Server.Run(); err != nil {
-		panic(err)
-	}
+func (a *App) Run() (err error) {
+	err = a.Server.Run()
+	return
 }

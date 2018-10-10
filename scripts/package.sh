@@ -9,15 +9,20 @@
 set -o errexit
 set -o nounset
 
-. ${SCRIPTS_PATH}/env
+# shellcheck source=/dev/null
+. "${SCRIPTS_PATH}"/env
 
 pcolor "INFO" "Creating output folders";
-mkdir -p ${OUTPUT_PATH} && mkdir -p ${OUTPUT_PATH}etc && mkdir -p ${OUTPUT_PATH}logs;
+mkdir -p "${OUTPUT_PATH}" && \
+  mkdir -p "${OUTPUT_PATH}"/etc && \
+  mkdir -p "${OUTPUT_PATH}"/logs;
 
 pcolor "INFO" "Starting to pack ${BIN}";
-cp ${ACTUAL}/templates/* ${OUTPUT_PATH}etc/;
-cp -R ${ACTUAL}/assets/* ${OUTPUT_PATH};
-tar -zcf ${PKG} bin/;
+cp "${ACTUAL}"/app.conf "${OUTPUT_PATH}"/etc/;
+cp -R "${ACTUAL}"/templates "${OUTPUT_PATH}";
+cp -R "${ACTUAL}"/assets "${OUTPUT_PATH}";
+cd "${ACTUAL}";
+tar -zcf ${PKG} ${OUTPUT_NAME};
 
 pcolor "INFO" "Done!";
 

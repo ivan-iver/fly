@@ -29,7 +29,7 @@ func TestFile(t *testing.T) {
 		} else if ok == false {
 			t.Errorf("f.Name must be file.go and is %v", f.Name)
 		}
-		fmt.Printf("Salida: %v", f.Name)
+		// fmt.Printf("Salida: %v", f.Name)
 	})
 
 }

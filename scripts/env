@@ -15,7 +15,7 @@ set -o nounset
 # export red='\033[0;31m'
 # export NC='\033[0m' # No Color
 
-export CLTYPE="\033"
+export CLTYPE="\\033"
 
   # command line _eye candy_
  export  NC="${CLTYPE}[0m"        # Text Reset

@@ -2,7 +2,8 @@ SHELL := bash
 
 export ACTUAL := $(shell pwd)
 export SCRIPTS_PATH := ${ACTUAL}/scripts
-export OUTPUT_PATH := ${ACTUAL}/bin/
+export OUTPUT_NAME := bin
+export OUTPUT_PATH := ${ACTUAL}/${OUTPUT_NAME}
 export DEPLOY_CI_PATH=${ACTUAL}/.ci
 export BIN := fly
 export PKG := ${BIN}.tar.gz
@@ -20,7 +21,7 @@ run:
 test:
 	${SCRIPTS_PATH}/test.sh;
 
-package: TARJET_OS := LINUX
+# package: TARJET_OS := LINUX
 package: clean build
 	${SCRIPTS_PATH}/package.sh;
 

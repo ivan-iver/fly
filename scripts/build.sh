@@ -23,6 +23,6 @@ else
 fi
 
 go build -a                                                     \
-    -ldflags "-X main.version=${VERSION}"                       \
+    -ldflags "-X lib.version=${VERSION}"                       \
     -o ${OUTPUT_PATH}/${BIN}
 

@@ -9,17 +9,11 @@
 set -o errexit
 set -o nounset
 
-. ${SCRIPTS_PATH}/env
-
-pcolor "INFO" "Creating output folders";
-mkdir -p ${OUTPUT_PATH} && mkdir -p ${OUTPUT_PATH}etc && mkdir -p ${OUTPUT_PATH}logs;
-
-pcolor "INFO" "Start ... ${BIN}";
-cp ${ACTUAL}/templates/* ${OUTPUT_PATH};
-cp -R ${ACTUAL}/assets/* ${OUTPUT_PATH};
+# shellcheck source=/dev/null
+. "${SCRIPTS_PATH}"/env
 
 go run -a main.go
 
 pcolor "INFO" "Build done!";
 pcolor "INFO" "Execute binary file: ${BIN}";
-cd ${OUTPUT_PATH} && ${BIN};
+cd "${OUTPUT_PATH}" && ${BIN};

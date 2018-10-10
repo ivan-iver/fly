@@ -18,7 +18,7 @@ type Server struct {
 
 // Run publish the web server
 func (s *Server) Run() (err error) {
-	log.Info("Listening on port", s.Port)
+	log.Infof("Listening on port: %v", s.Port)
 	s.Render = render.New(render.Options{
 		Layout:        "layout",
 		IsDevelopment: true,
