@@ -17,16 +17,27 @@ type Logger struct {
 }
 
 // GetLogger configure and returns logger struct
-func GetLogger(logfile string) (log *Logger, err error) {
+func GetLogger(logfile string, isDebug bool) (log *Logger, err error) {
 	log = &Logger{
 		Logger:   logging.MustGetLogger("fly"),
 		filename: logfile,
 	}
-	var backend = logging.NewLogBackend(os.Stderr, "", 0)
-	var formated = logging.NewBackendFormatter(backend, format)
-	logging.SetBackend(formated)
+	configureBackend(isDebug)
 	//err = setOutput(log)
 	return
+}
+
+func configureBackend(isDebug bool) {
+	var backend = logging.NewLogBackend(os.Stderr, "", 0)
+	var toLeveled = logging.AddModuleLevel(backend)
+
+	if isDebug {
+		toLeveled.SetLevel(logging.DEBUG, "")
+	} else {
+		toLeveled.SetLevel(logging.ERROR, "")
+	}
+	var formated = logging.NewBackendFormatter(toLeveled, format)
+	logging.SetBackend(formated)
 }
 
 func setOutput(log *Logger) (err error) {

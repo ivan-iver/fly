@@ -13,9 +13,11 @@ const (
 )
 
 var (
-	hash    string
-	log     *Logger
+	hash = "5fab2d8"
+	log  *Logger
+	// Version is a variable
 	version = "Fly Server version v0.0.1"
+	logFile = "logs/error.log"
 )
 
 // App models current application
@@ -26,24 +28,47 @@ type App struct {
 	*Server
 }
 
+// ConfigData models data setting from Config
+type ConfigData struct {
+	IsDebug     bool
+	LogFile     string
+	IndexFile   string
+	DefaultPath string
+}
+
+func getConfigData() (config *Config, c *ConfigData, err error) {
+	if config, err = NewConfig(); err != nil {
+		return
+	}
+	c = &ConfigData{
+		IsDebug:     config.BooleanDefault("debug", true),
+		LogFile:     config.StringDefault("logfile", logFile),
+		IndexFile:   config.StringDefault("index", "index.md"),
+		DefaultPath: config.StringDefault("path", ""),
+	}
+	return config, c, err
+}
+
 // NewApp provides a new App struct with its initializated fields
 func NewApp() (application *App, err error) {
-	config, err := NewConfig()
-	if err != nil {
+	var config *Config
+	var data *ConfigData
+	if config, data, err = getConfigData(); err != nil {
 		return
 	}
-	log, err = GetLogger(config.StringDefault("logfile", "logs/error.log"))
-	if err != nil {
+
+	if log, err = GetLogger(data.LogFile, data.IsDebug); err != nil {
 		return
 	}
+	log.Infof("ConfigData: %#v", data)
 	application = &App{
 		app:    kingpin.New(appName, desc),
 		Config: config,
 		Log:    log,
 		Server: &Server{
-			Index: config.StringDefault("index", "index.md"),
-			Debug: config.BooleanDefault("debug", true),
-			Path:  config.StringDefault("path", ""),
+			Index: data.IndexFile,
+			Debug: data.IsDebug,
+			Path:  data.DefaultPath,
 		},
 	}
 	log.Debugf("Reading %v - Is debug: %v", application.Index, application.Debug)
@@ -54,6 +79,7 @@ func NewApp() (application *App, err error) {
 
 // Version function returns the application version
 func (a *App) Version() (v string) {
+	log.Debugf("Version is %v, %v", version, hash)
 	v = fmt.Sprintf("%v %s", version, hash)
 	a.app.Version(v)
 	return
